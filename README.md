@@ -1,3 +1,33 @@
+# Temporary maintenance fork
+
+This fork is based on upstream tag `7.0.2`, commit
+`17b869b118620133e222d095a118639c1980b692`, and identifies its patched
+package as `7.0.2+tidmo.1`. It is not an official Pagar.me release.
+
+The changes are deliberately limited to generic SDK defects:
+
+- Defer circular response-model imports until deserialization, preserving nested fields.
+- Accept an empty Basic Auth password and preserve explicit empty credential overrides.
+- Add offline regressions for fresh-process imports, nested responses, and authentication.
+
+There are no Tidmo payment rules, secrets, or production credentials in this fork.
+To run the regressions after installing the SDK:
+
+```sh
+python -m pip install .
+python -m unittest discover -s tests -v
+```
+
+CI runs the offline suite on Python 3.10 through 3.14. The integration has also
+been tested separately in the Tidmo application; that does not replace sandbox validation.
+
+When an upstream version becomes available, inspect its changes rather than
+updating automatically. Run these regressions against the unmodified upstream
+candidate, then the application's HTTP contract tests and its sandbox scenarios.
+Only switch the application's pinned commit and remove local compatibility
+workarounds once those checks pass. Do not add business-specific behavior here.
+
+---
 
 # Getting Started with PagarmeApiSDK
 
